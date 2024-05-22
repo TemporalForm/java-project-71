@@ -1,7 +1,6 @@
 plugins {
     checkstyle
     application
-
     id("se.patrikerdes.use-latest-versions") version "0.2.18"
     id("com.github.ben-manes.versions") version "0.41.0"
 }
@@ -23,6 +22,7 @@ dependencies {
     annotationProcessor("info.picocli:picocli-codegen:4.7.6")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.17.1")
 }
 
 tasks.test {

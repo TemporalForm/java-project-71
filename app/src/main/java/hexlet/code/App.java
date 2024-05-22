@@ -3,10 +3,17 @@ package hexlet.code;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
+import picocli.CommandLine.Parameters;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.concurrent.Callable;
 
 @Command(name = "differ", description = "Compares two configuration files and shows a difference.")
-public class App {
-
+public class App implements Callable<Integer> {
+    public static final Integer SUCCESS = 1;
+    public static final Integer FAIL = 0;
     public static void main(String[] args) {
         CommandLine commandLine = new CommandLine(new App());
         commandLine.parseArgs(args);
@@ -17,14 +24,33 @@ public class App {
             commandLine.printVersionHelp(System.out);
             return;
         }
-        System.out.println("Hello World!");
+        int exitCode = new CommandLine(new App()).execute(args);
+        System.exit(exitCode);
     }
 
-    @Option(names = {"-V", "--version"}, versionHelp = true, description = "display version info")
-    boolean versionInfoRequested;
+    @Override
+    public Integer call() {
+        try {
+            System.out.println(Differ.generate(filepath1, filepath2));
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            return FAIL;
+        }
+        return SUCCESS;
+    }
+
+    @Parameters(index = "0", description = "path to first file")
+    private String filepath1;
+
+    @Parameters(index = "1", description = "path to second file")
+    private String filepath2;
+    @Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
+    private String format = "stylish";
 
     @Option(names = {"-h", "--help"}, usageHelp = true, description = "display this help message")
     boolean usageHelpRequested;
 
+    @Option(names = {"-V", "--version"}, versionHelp = true, description = "display version info")
+    boolean versionInfoRequested;
 }
 
