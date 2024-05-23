@@ -14,6 +14,7 @@ import java.util.concurrent.Callable;
 public class App implements Callable<Integer> {
     public static final Integer SUCCESS = 1;
     public static final Integer FAIL = 0;
+
     public static void main(String[] args) {
         CommandLine commandLine = new CommandLine(new App());
         commandLine.parseArgs(args);
