@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,8 +23,9 @@ public class DifferTest {
 
     @Test
     public void testMainFunctionality() throws Exception {
-        assertEquals(expected,
-                Differ.generate("src/test/resources/testfilepath1.json", "src/test/resources/testfilepath2.json"));
-
+        String actual = Differ.generate("src/test/resources/testfilepath1.json",
+                "src/test/resources/testfilepath2.json");
+        assertEquals(expected, actual);
     }
+
 }

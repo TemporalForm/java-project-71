@@ -1,6 +1,8 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/TemporalForm/java-project-71/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/TemporalForm/java-project-71/actions)
 
+[![Github Actions](https://github.com/TemporalForm/java-project-71/actions/workflows/main.yml/badge.svg)](https://github.com/TemporalForm/java-project-71/actions)
+
 <a href="https://codeclimate.com/github/TemporalForm/java-project-71/maintainability"><img src="https://api.codeclimate.com/v1/badges/4bedf52933bcb6c4aae4/maintainability" /></a>
 
 ### *Difference Calculator* Project
