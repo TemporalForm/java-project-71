@@ -10,7 +10,8 @@ public class Differ {
     public static final String[] FIELD_STATUS = {"changed", "added", "removed", "same"};
 
 
-    public static SortedMap<String, String> calculateDiffAsMap(Map<String, Object> firstMap, Map<String, Object> secondMap) {
+    public static SortedMap<String, String> calculateDiffAsMap(Map<String, Object> firstMap,
+                                                               Map<String, Object> secondMap) {
         SortedMap<String, String> statusMap = new TreeMap<>();
         firstMap.forEach((key, value) -> {
             if (secondMap.containsKey(key) && Objects.equals(value, secondMap.get(key))) {
