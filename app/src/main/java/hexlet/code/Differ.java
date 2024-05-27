@@ -10,8 +10,7 @@ public class Differ {
     public static final String[] FIELD_STATUS = {"changed", "added", "removed", "same"};
 
 
-    public static SortedMap<String, String> diffToMap(Map<String, Object> firstMap, Map<String, Object> secondMap)
-            throws Exception {
+    public static SortedMap<String, String> calculateDiffAsMap(Map<String, Object> firstMap, Map<String, Object> secondMap) {
         SortedMap<String, String> statusMap = new TreeMap<>();
         firstMap.forEach((key, value) -> {
             if (secondMap.containsKey(key) && Objects.equals(value, secondMap.get(key))) {
@@ -31,24 +30,11 @@ public class Differ {
         return statusMap;
     }
 
-    public static String generate(String filepath1, String filepath2) throws Exception {
+    public static String generate(String filepath1, String filepath2, String format) throws Exception {
         Map<String, Object> firstMap = Parser.parseFileToMap(filepath1);
         Map<String, Object> secondMap = Parser.parseFileToMap(filepath2);
-        SortedMap<String, String> statusMap = diffToMap(firstMap, secondMap);
-        StringBuilder resultDiff = new StringBuilder("{\n");
-        statusMap.forEach((key, value) -> {
-            if (value.equals(FIELD_STATUS[3])) {
-                resultDiff.append("    ").append(key).append(": ").append(firstMap.get(key)).append("\n");
-            } else if (value.equals(FIELD_STATUS[0])) {
-                resultDiff.append("  - ").append(key).append(": ").append(firstMap.get(key)).append("\n");
-                resultDiff.append("  + ").append(key).append(": ").append(secondMap.get(key)).append("\n");
-            } else if (value.equals(FIELD_STATUS[1])) {
-                resultDiff.append("  + ").append(key).append(": ").append(secondMap.get(key)).append("\n");
-            } else {
-                resultDiff.append("  - ").append(key).append(": ").append(firstMap.get(key)).append("\n");
-            }
-        });
-        resultDiff.append("}");
-        return resultDiff.toString();
+        SortedMap<String, String> statusMap = calculateDiffAsMap(firstMap, secondMap);
+        String diffResultAsString = Formatter.stylish(firstMap, secondMap, statusMap, format);
+        return diffResultAsString;
     }
 }

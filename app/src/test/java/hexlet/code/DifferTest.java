@@ -10,28 +10,27 @@ import java.nio.file.Paths;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DifferTest {
-
-    private static String expected;
+    private static final String expected;
 
     static {
         try {
-            expected = Files.readString(Paths.get("src/test/resources/testresult1.txt"));
+            expected = Files.readString(Paths.get("src/test/resources/TestNestedFilesResult.txt"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Test
-    public void testMainFunctionalityJson() throws Exception {
-        String actual = Differ.generate("src/test/resources/testfilepath1.json",
-                "src/test/resources/testfilepath2.json");
+    public void testNestedFunctionalityJson() throws Exception {
+        String actual = Differ.generate("src/test/resources/TestNestedFile1.json",
+                "src/test/resources/TestNestedFile2.json", "stylish");
         assertEquals(expected, actual);
     }
 
     @Test
-    public void testMainFunctionalityYaml() throws Exception {
-        String actual = Differ.generate("src/test/resources/testfilepath1.yml",
-                "src/test/resources/testfilepath2.yml");
+    public void testNestedFunctionalityYaml() throws Exception {
+        String actual = Differ.generate("src/test/resources/TestNestedFile1.yml",
+                "src/test/resources/TestNestedFile2.yml", "stylish");
         assertEquals(expected, actual);
     }
 

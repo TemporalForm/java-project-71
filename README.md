@@ -15,3 +15,6 @@
 
 ### YAML Functional demo
 [![asciicast](https://asciinema.org/a/rv3vIVYDChE9T8lzObcBM1Vc2.svg)](https://asciinema.org/a/rv3vIVYDChE9T8lzObcBM1Vc2)
+
+### Nested Files Functional demo
+[![asciicast](https://asciinema.org/a/661408.svg)](https://asciinema.org/a/661408)
