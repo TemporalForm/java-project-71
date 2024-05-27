@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DifferTest {
-    private static final String expected;
+    private static String expected;
 
     static {
         try {
