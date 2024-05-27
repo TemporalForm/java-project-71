@@ -22,9 +22,16 @@ public class DifferTest {
     }
 
     @Test
-    public void testMainFunctionality() throws Exception {
+    public void testMainFunctionalityJson() throws Exception {
         String actual = Differ.generate("src/test/resources/testfilepath1.json",
                 "src/test/resources/testfilepath2.json");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testMainFunctionalityYaml() throws Exception {
+        String actual = Differ.generate("src/test/resources/testfilepath1.yml",
+                "src/test/resources/testfilepath2.yml");
         assertEquals(expected, actual);
     }
 

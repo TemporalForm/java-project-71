@@ -1,27 +1,14 @@
 package hexlet.code;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Objects;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 public class Differ {
 
     public static final String[] FIELD_STATUS = {"changed", "added", "removed", "same"};
 
-    public static Map<String, Object> parseJsonToMap(String filepath) throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        Path pathToJson = Paths.get(filepath).toAbsolutePath();
-        Map<String, Object> jsonToMap = objectMapper.readValue(pathToJson.toFile(),
-                new TypeReference<Map<String, Object>>() {
-                });
-        return jsonToMap;
-    }
 
     public static SortedMap<String, String> diffToMap(Map<String, Object> firstMap, Map<String, Object> secondMap)
             throws Exception {
@@ -45,8 +32,8 @@ public class Differ {
     }
 
     public static String generate(String filepath1, String filepath2) throws Exception {
-        Map<String, Object> firstMap = parseJsonToMap(filepath1);
-        Map<String, Object> secondMap = parseJsonToMap(filepath2);
+        Map<String, Object> firstMap = Parser.parseFileToMap(filepath1);
+        Map<String, Object> secondMap = Parser.parseFileToMap(filepath2);
         SortedMap<String, String> statusMap = diffToMap(firstMap, secondMap);
         StringBuilder resultDiff = new StringBuilder("{\n");
         statusMap.forEach((key, value) -> {
