@@ -20,4 +20,4 @@
 [![asciicast](https://asciinema.org/a/661445.svg)](https://asciinema.org/a/661445)
 
 ### Json functional demo
-[![asciicast](https://asciinema.org/a/661446.svg)](https://asciinema.org/a/661446)
+[![asciicast](https://asciinema.org/a/661534.svg)](https://asciinema.org/a/661534)
