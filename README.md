@@ -10,11 +10,8 @@
 ### *Difference Calculator* Project
 «Difference Calculator» is a tool in which you can compare two Json files and get a detailed report of the differences. Accepts two Json files as relative or absolute paths on input.
 
-### Json Functional demo
-[![asciicast](https://asciinema.org/a/iOdJdDO5C4LRzsZHqVQrCQnz9.svg)](https://asciinema.org/a/iOdJdDO5C4LRzsZHqVQrCQnz9)
+### Stylish Functional demo
+[![asciicast](https://asciinema.org/a/iCBgLb8s77iebQSJiKvaqlIwu.svg)](https://asciinema.org/a/iCBgLb8s77iebQSJiKvaqlIwu)
 
-### YAML Functional demo
-[![asciicast](https://asciinema.org/a/rv3vIVYDChE9T8lzObcBM1Vc2.svg)](https://asciinema.org/a/rv3vIVYDChE9T8lzObcBM1Vc2)
-
-### Nested Files Functional demo
-[![asciicast](https://asciinema.org/a/661408.svg)](https://asciinema.org/a/661408)
+### Plain Functional demo
+[![asciicast](https://asciinema.org/a/661445.svg)](https://asciinema.org/a/661445)
