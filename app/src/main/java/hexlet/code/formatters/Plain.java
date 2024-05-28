@@ -9,10 +9,10 @@ public class Plain {
                                           SortedMap<String, String> statusMap) {
         StringBuilder resultDiff = new StringBuilder();
         statusMap.forEach((key, status) -> {
-            String currentValue = String.valueOf(firstMap.get(key));
+            String oldValue = String.valueOf(firstMap.get(key));
             String newValue = String.valueOf(secondMap.get(key));
             switch (status) {
-                case "changed" -> updateValueByKey(resultDiff, key, currentValue, newValue, firstMap, secondMap);
+                case "changed" -> updateValueByKey(resultDiff, key, oldValue, newValue, firstMap, secondMap);
                 case "added" -> addValueByKey(resultDiff, key, newValue, secondMap);
                 case "removed" -> resultDiff.append("Property '").append(key).append("' was removed\n");
                 case "same" -> {
