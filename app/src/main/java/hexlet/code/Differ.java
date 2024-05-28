@@ -14,12 +14,12 @@ public class Differ {
                                                                Map<String, Object> secondMap) {
         SortedMap<String, String> statusMap = new TreeMap<>();
         firstMap.forEach((key, value) -> {
-            if (secondMap.containsKey(key) && Objects.equals(value, secondMap.get(key))) {
-                statusMap.put(key, FIELD_STATUS[3]);
-            } else if (secondMap.containsKey(key) && !Objects.equals(value, secondMap.get(key))) {
+            if (secondMap.containsKey(key) && !Objects.equals(value, secondMap.get(key))) {
                 statusMap.put(key, FIELD_STATUS[0]);
-            } else {
+            } else if (!secondMap.containsKey(key)) {
                 statusMap.put(key, FIELD_STATUS[2]);
+            } else {
+                statusMap.put(key, FIELD_STATUS[3]);
             }
         });
 

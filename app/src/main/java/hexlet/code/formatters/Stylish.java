@@ -3,22 +3,22 @@ package hexlet.code.formatters;
 import java.util.Map;
 import java.util.SortedMap;
 
-import static hexlet.code.Differ.FIELD_STATUS;
-
 public class Stylish {
     public static String buildStylishResult(Map<String, Object> firstMap, Map<String, Object> secondMap,
-                                 SortedMap<String, String> statusMap) {
+                                            SortedMap<String, String> statusMap) {
         StringBuilder resultDiff = new StringBuilder("{\n");
-        statusMap.forEach((key, value) -> {
-            if (value.equals(FIELD_STATUS[3])) {
-                resultDiff.append("    ").append(key).append(": ").append(firstMap.get(key)).append("\n");
-            } else if (value.equals(FIELD_STATUS[0])) {
-                resultDiff.append("  - ").append(key).append(": ").append(firstMap.get(key)).append("\n");
-                resultDiff.append("  + ").append(key).append(": ").append(secondMap.get(key)).append("\n");
-            } else if (value.equals(FIELD_STATUS[1])) {
-                resultDiff.append("  + ").append(key).append(": ").append(secondMap.get(key)).append("\n");
-            } else {
-                resultDiff.append("  - ").append(key).append(": ").append(firstMap.get(key)).append("\n");
+        statusMap.forEach((key, status) -> {
+            switch (status) {
+                case "changed" ->
+                        resultDiff.append("  - ").append(key).append(": ").append(firstMap.get(key)).append("\n")
+                                .append("  + ").append(key).append(": ").append(secondMap.get(key)).append("\n");
+                case "added" ->
+                        resultDiff.append("  + ").append(key).append(": ").append(secondMap.get(key)).append("\n");
+                case "removed" ->
+                        resultDiff.append("  - ").append(key).append(": ").append(firstMap.get(key)).append("\n");
+                case "same" ->
+                        resultDiff.append("    ").append(key).append(": ").append(firstMap.get(key)).append("\n");
+                default -> throw new RuntimeException("Received unexpected status: " + status);
             }
         });
         resultDiff.append("}");
