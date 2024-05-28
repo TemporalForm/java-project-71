@@ -9,7 +9,6 @@ public class Differ {
 
     public static final String[] FIELD_STATUS = {"changed", "added", "removed", "same"};
 
-
     public static SortedMap<String, String> calculateDiffAsMap(Map<String, Object> firstMap,
                                                                Map<String, Object> secondMap) {
         SortedMap<String, String> statusMap = new TreeMap<>();
@@ -22,13 +21,18 @@ public class Differ {
                 statusMap.put(key, FIELD_STATUS[3]);
             }
         });
-
         secondMap.forEach((key, value) -> {
             if (!firstMap.containsKey(key)) {
                 statusMap.put(key, FIELD_STATUS[1]);
             }
         });
         return statusMap;
+    }
+
+    public static String generate(String filepath1, String filepath2) throws Exception {
+        String defaultFormat = "stylish";
+        String diffResultAsString = generate(filepath1, filepath2, defaultFormat);
+        return diffResultAsString;
     }
 
     public static String generate(String filepath1, String filepath2, String format) throws Exception {
