@@ -7,23 +7,21 @@ import java.util.TreeMap;
 
 public class Differ {
 
-    public static final String[] FIELD_STATUS = {"changed", "added", "removed", "same"};
-
     public static SortedMap<String, String> calculateDiffAsMap(Map<String, Object> firstMap,
                                                                Map<String, Object> secondMap) {
         SortedMap<String, String> statusMap = new TreeMap<>();
         firstMap.forEach((key, value) -> {
             if (secondMap.containsKey(key) && !Objects.equals(value, secondMap.get(key))) {
-                statusMap.put(key, FIELD_STATUS[0]);
+                statusMap.put(key, "changed");
             } else if (!secondMap.containsKey(key)) {
-                statusMap.put(key, FIELD_STATUS[2]);
+                statusMap.put(key, "removed");
             } else {
-                statusMap.put(key, FIELD_STATUS[3]);
+                statusMap.put(key, "same");
             }
         });
         secondMap.forEach((key, value) -> {
             if (!firstMap.containsKey(key)) {
-                statusMap.put(key, FIELD_STATUS[1]);
+                statusMap.put(key, "added");
             }
         });
         return statusMap;

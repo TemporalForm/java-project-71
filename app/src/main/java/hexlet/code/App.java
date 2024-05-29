@@ -27,7 +27,7 @@ public class App implements Callable<Integer> {
     }
 
     @Override
-    public Integer call() {
+    public final Integer call() {
         try {
             if (format.equals("stylish")) {
                 System.out.println(Differ.generate(filepath1, filepath2));
@@ -50,9 +50,9 @@ public class App implements Callable<Integer> {
     private String format;
 
     @Option(names = {"-h", "--help"}, usageHelp = true, description = "display this help message")
-    boolean usageHelpRequested;
+    private boolean usageHelpRequested;
 
     @Option(names = {"-V", "--version"}, versionHelp = true, description = "display version info")
-    boolean versionInfoRequested;
+    private boolean versionInfoRequested;
 }
 
