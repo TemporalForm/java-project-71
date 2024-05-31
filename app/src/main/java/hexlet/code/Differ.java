@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 import java.util.Map;
 import java.util.SortedMap;
 
-import static hexlet.code.DiffConstructor.calculateDiffAsMap;
+import static hexlet.code.DiffConstructor.buildDifferenceTree;
 
 public class Differ {
 
@@ -20,8 +20,8 @@ public class Differ {
         Path pathToSecondFile = Paths.get(filepath2).toAbsolutePath().normalize();
         Map<String, Object> firstMap = Parser.parseFileToMap(pathToFirstFile);
         Map<String, Object> secondMap = Parser.parseFileToMap(pathToSecondFile);
-        SortedMap<String, String> statusMap = calculateDiffAsMap(firstMap, secondMap);
-        String diffResultAsString = Formatter.stylish(firstMap, secondMap, statusMap, format);
+        SortedMap<String, Map<String, Object>> diffAsTreeOfMaps = buildDifferenceTree(firstMap, secondMap);
+        String diffResultAsString = Formatter.buildFormattedResult(diffAsTreeOfMaps, format);
         return diffResultAsString;
     }
 }

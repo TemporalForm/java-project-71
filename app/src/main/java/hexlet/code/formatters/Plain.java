@@ -5,15 +5,15 @@ import java.util.SortedMap;
 
 public class Plain {
 
-    public static String buildPlainResult(Map<String, Object> firstMap, Map<String, Object> secondMap,
-                                          SortedMap<String, String> statusMap) {
+    public static String buildPlainResult(SortedMap<String, Map<String, Object>> differenceTree) {
         StringBuilder resultDiff = new StringBuilder();
-        statusMap.forEach((key, status) -> {
-            String oldValue = String.valueOf(firstMap.get(key));
-            String newValue = String.valueOf(secondMap.get(key));
+        differenceTree.forEach((key, statusMap) -> {
+            String status = String.valueOf(statusMap.get("status"));
+            Object oldValue = statusMap.get("oldValue");
+            Object newValue = statusMap.get("newValue");
             switch (status) {
-                case "changed" -> updateValueByKey(resultDiff, key, oldValue, newValue, firstMap, secondMap);
-                case "added" -> addValueByKey(resultDiff, key, newValue, secondMap);
+                case "changed" -> updateValueByKey(resultDiff, key, oldValue, newValue);
+                case "added" -> addValueByKey(resultDiff, key, newValue);
                 case "removed" -> resultDiff.append("Property '").append(key).append("' was removed\n");
                 case "same" -> {
                     break;
@@ -24,26 +24,25 @@ public class Plain {
         return resultDiff.toString().trim();
     }
 
-    private static void updateValueByKey(StringBuilder resultDiff, String key, String currentValue, String newValue,
-                                         Map<String, Object> firstMap, Map<String, Object> secondMap) {
+    private static void updateValueByKey(StringBuilder resultDiff, String key, Object oldValue, Object newValue) {
         resultDiff.append("Property '").append(key).append("' was updated. From ");
-        appendValueByType(resultDiff, currentValue, firstMap.get(key));
+        appendValueByType(resultDiff, oldValue);
         resultDiff.append(" to ");
-        appendValueByType(resultDiff, newValue, secondMap.get(key));
+        appendValueByType(resultDiff, newValue);
         resultDiff.append("\n");
     }
 
-    private static void addValueByKey(StringBuilder resultDiff, String key, String newValue,
-                                      Map<String, Object> secondMap) {
+    private static void addValueByKey(StringBuilder resultDiff, String key, Object newValue) {
         resultDiff.append("Property '").append(key).append("' was added with value: ");
-        appendValueByType(resultDiff, newValue, secondMap.get(key));
+        appendValueByType(resultDiff, newValue);
         resultDiff.append("\n");
     }
 
-    private static void appendValueByType(StringBuilder resultDiff, String value, Object originalValue) {
-        if (originalValue instanceof String) {
+    private static void appendValueByType(StringBuilder resultDiff, Object value) {
+        String valueAsString = String.valueOf(value);
+        if (value instanceof String) {
             resultDiff.append("'").append(value).append("'");
-        } else if (value.startsWith("[") || value.startsWith("{")) {
+        } else if (valueAsString.startsWith("[") || valueAsString.startsWith("{")) {
             resultDiff.append("[complex value]");
         } else {
             resultDiff.append(value);
