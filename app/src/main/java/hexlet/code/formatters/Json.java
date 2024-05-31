@@ -17,30 +17,19 @@ public class Json {
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         List<Map<String, Object>> diffAsListOfMaps = new LinkedList<>();
         statusMap.forEach((key, status) -> {
-            String oldValue = String.valueOf(firstMap.get(key));
-            String newValue = String.valueOf(secondMap.get(key));
             Map<String, Object> dataSegment = new LinkedHashMap<>();
+            dataSegment.put("status", status);
+            dataSegment.put("key", key);
             switch (status) {
                 case "changed" -> {
-                    dataSegment.put("status", "updated");
-                    dataSegment.put("key", key);
-                    dataSegment.put("oldValue", oldValue);
-                    dataSegment.put("newValue", newValue);
+                    dataSegment.put("oldValue", firstMap.get(key));
+                    dataSegment.put("newValue", secondMap.get(key));
                 }
                 case "added" -> {
-                    dataSegment.put("status", "added");
-                    dataSegment.put("key", key);
-                    dataSegment.put("newValue", newValue);
+                    dataSegment.put("newValue", secondMap.get(key));
                 }
-                case "removed" -> {
-                    dataSegment.put("status", "removed");
-                    dataSegment.put("key", key);
-                    dataSegment.put("oldValue", oldValue);
-                }
-                case "same" -> {
-                    dataSegment.put("status", "same");
-                    dataSegment.put("key", key);
-                    dataSegment.put("oldValue", oldValue);
+                case "removed", "same" -> {
+                    dataSegment.put("oldValue", firstMap.get(key));
                 }
                 default -> throw new RuntimeException("Received unexpected status: " + status);
             }

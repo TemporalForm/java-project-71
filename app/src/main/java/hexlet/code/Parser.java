@@ -6,21 +6,19 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 
 public class Parser {
-    public static Map<String, Object> parseFileToMap(String filepath) throws Exception {
-        Path pathToJson = Paths.get(filepath).toAbsolutePath();
+    public static Map<String, Object> parseFileToMap(Path filepath) throws Exception {
         if (filepath.endsWith(".json")) {
             ObjectMapper objectMapper = new JsonMapper();
-            Map<String, Object> jsonToMap = objectMapper.readValue(pathToJson.toFile(),
+            Map<String, Object> jsonToMap = objectMapper.readValue(filepath.toFile(),
                     new TypeReference<Map<String, Object>>() {
                     });
             return jsonToMap;
         } else {
             ObjectMapper objectMapper = new YAMLMapper();
-            Map<String, Object> yamlToMap = objectMapper.readValue(pathToJson.toFile(),
+            Map<String, Object> yamlToMap = objectMapper.readValue(filepath.toFile(),
                     new TypeReference<Map<String, Object>>() {
                     });
             return yamlToMap;
