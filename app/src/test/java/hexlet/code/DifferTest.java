@@ -1,6 +1,7 @@
 package hexlet.code;
 
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -13,70 +14,84 @@ public class DifferTest {
     private static String expectedStylish;
     private static String expectedPlain;
     private static String expectedJson;
+    private static String pathToFirstJsonFixture;
+    private static String pathToSecondJsonFixture;
+    private static String pathToFirstYamlFixture;
+    private static String pathToSecondYamlFixture;
 
-    static {
-        try {
-            expectedStylish = Files.readString(Paths.get("src/test/resources/TestStylishFilesResult.txt"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    @BeforeAll
+    public static void setupTestResultFiles() {
+        expectedStylish = readFileAsString("src/test/resources/TestStylishFilesResult.txt");
+        expectedPlain = readFileAsString("src/test/resources/TestPlainFilesResult.txt");
+        expectedJson = readFileAsString("src/test/resources/TestJsonFilesResult.txt");
+        pathToFirstJsonFixture = "src/test/resources/TestFile1.json";
+        pathToSecondJsonFixture = "src/test/resources/TestFile2.json";
+        pathToFirstYamlFixture = "src/test/resources/TestFile1.yml";
+        pathToSecondYamlFixture = "src/test/resources/TestFile2.yml";
+
     }
 
-    static {
+    private static String readFileAsString(String path) {
         try {
-            expectedPlain = Files.readString(Paths.get("src/test/resources/TestPlainFilesResult.txt"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    static {
-        try {
-            expectedJson = Files.readString(Paths.get("src/test/resources/TestJsonFilesResult.txt"));
+            return Files.readString(Paths.get(path));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Test
+    public void testDefaultFunctionalityJson() throws Exception {
+        String actual = Differ.generate(pathToFirstJsonFixture,
+                pathToSecondJsonFixture);
+        assertEquals(expectedStylish, actual);
+    }
+
+    @Test
+    public void testDefaultFunctionalityYaml() throws Exception {
+        String actual = Differ.generate(pathToFirstYamlFixture,
+                pathToSecondYamlFixture);
+        assertEquals(expectedStylish, actual);
+    }
+
+    @Test
     public void testStylishFunctionalityJson() throws Exception {
-        String actual = Differ.generate("src/test/resources/TestFile1.json",
-                "src/test/resources/TestFile2.json", "stylish");
+        String actual = Differ.generate(pathToFirstJsonFixture,
+                pathToSecondJsonFixture, "stylish");
         assertEquals(expectedStylish, actual);
     }
 
     @Test
     public void testStylishFunctionalityYaml() throws Exception {
-        String actual = Differ.generate("src/test/resources/TestFile1.yml",
-                "src/test/resources/TestFile2.yml", "stylish");
+        String actual = Differ.generate(pathToFirstYamlFixture,
+                pathToSecondYamlFixture, "stylish");
         assertEquals(expectedStylish, actual);
     }
 
     @Test
     public void testPlainFunctionalityJson() throws Exception {
-        String actual = Differ.generate("src/test/resources/TestFile1.json",
-                "src/test/resources/TestFile2.json", "plain");
+        String actual = Differ.generate(pathToFirstJsonFixture,
+                pathToSecondJsonFixture, "plain");
         assertEquals(expectedPlain, actual);
     }
 
     @Test
     public void testPlainFunctionalityYaml() throws Exception {
-        String actual = Differ.generate("src/test/resources/TestFile1.yml",
-                "src/test/resources/TestFile2.yml", "plain");
+        String actual = Differ.generate(pathToFirstYamlFixture,
+                pathToSecondYamlFixture, "plain");
         assertEquals(expectedPlain, actual);
     }
 
     @Test
     public void testJsonFunctionalityJson() throws Exception {
-        String actual = Differ.generate("src/test/resources/TestFile1.yml",
-                "src/test/resources/TestFile2.yml", "json");
+        String actual = Differ.generate(pathToFirstJsonFixture,
+                pathToSecondJsonFixture, "json");
         assertEquals(expectedJson, actual);
     }
 
     @Test
     public void testJsonFunctionalityYaml() throws Exception {
-        String actual = Differ.generate("src/test/resources/TestFile1.yml",
-                "src/test/resources/TestFile2.yml", "json");
+        String actual = Differ.generate(pathToFirstYamlFixture,
+                pathToSecondYamlFixture, "json");
         assertEquals(expectedJson, actual);
     }
 }

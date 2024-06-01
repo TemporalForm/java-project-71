@@ -6,7 +6,7 @@ import java.util.SortedMap;
 public class Stylish {
     public static String buildStylishResult(SortedMap<String, Map<String, Object>> differenceTree) {
         StringBuilder resultDiff = new StringBuilder("{\n");
-      differenceTree.forEach((key, statusMap) -> {
+        differenceTree.forEach((key, statusMap) -> {
             String status = String.valueOf(statusMap.get("status"));
             String oldValue = String.valueOf(statusMap.get("oldValue"));
             String newValue = String.valueOf(statusMap.get("newValue"));
