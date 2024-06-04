@@ -21,13 +21,13 @@ public class DifferTest {
 
     @BeforeAll
     public static void setupTestResultFiles() {
-        expectedStylish = readFileAsString("src/test/resources/TestStylishFilesResult.txt");
-        expectedPlain = readFileAsString("src/test/resources/TestPlainFilesResult.txt");
-        expectedJson = readFileAsString("src/test/resources/TestJsonFilesResult.txt");
-        pathToFirstJsonFixture = "src/test/resources/TestFile1.json";
-        pathToSecondJsonFixture = "src/test/resources/TestFile2.json";
-        pathToFirstYamlFixture = "src/test/resources/TestFile1.yml";
-        pathToSecondYamlFixture = "src/test/resources/TestFile2.yml";
+        expectedStylish = readFileAsString("src/test/resources/fixtures/TestStylishFilesResult.txt");
+        expectedPlain = readFileAsString("src/test/resources/fixtures/TestPlainFilesResult.txt");
+        expectedJson = readFileAsString("src/test/resources/fixtures/TestJsonFilesResult.txt");
+        pathToFirstJsonFixture = "src/test/resources/fixtures/TestFile1.json";
+        pathToSecondJsonFixture = "src/test/resources/fixtures/TestFile2.json";
+        pathToFirstYamlFixture = "src/test/resources/fixtures/TestFile1.yml";
+        pathToSecondYamlFixture = "src/test/resources/fixtures/TestFile2.yml";
 
     }
 

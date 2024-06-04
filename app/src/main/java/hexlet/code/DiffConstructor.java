@@ -10,7 +10,7 @@ import java.util.TreeMap;
 
 public class DiffConstructor {
     public static SortedMap<String, Map<String, Object>> buildDifferenceTree(Map<String, Object> firstMap,
-                                                                       Map<String, Object> secondMap) {
+                                                                             Map<String, Object> secondMap) {
         SortedMap<String, Map<String, Object>> differenceTree = new TreeMap<>();
         Set<String> allKeys = new HashSet<>(firstMap.keySet());
         allKeys.addAll(secondMap.keySet());
@@ -18,19 +18,19 @@ public class DiffConstructor {
             Map<String, Object> statusMap = new LinkedHashMap<>();
             if (firstMap.containsKey(key) && secondMap.containsKey(key)) {
                 if (!Objects.equals(firstMap.get(key), secondMap.get(key))) {
-                    statusMap.put("status", "changed");
-                    statusMap.put("oldValue", firstMap.get(key));
-                    statusMap.put("newValue", secondMap.get(key));
+                    statusMap.put("diffType", "changed");
+                    statusMap.put("value1", firstMap.get(key));
+                    statusMap.put("value2", secondMap.get(key));
                 } else {
-                    statusMap.put("status", "same");
-                    statusMap.put("oldValue", firstMap.get(key));
+                    statusMap.put("diffType", "same");
+                    statusMap.put("value1", firstMap.get(key));
                 }
             } else if (firstMap.containsKey(key)) {
-                statusMap.put("status", "removed");
-                statusMap.put("oldValue", firstMap.get(key));
+                statusMap.put("diffType", "removed");
+                statusMap.put("value1", firstMap.get(key));
             } else {
-                statusMap.put("status", "added");
-                statusMap.put("newValue", secondMap.get(key));
+                statusMap.put("diffType", "added");
+                statusMap.put("value2", secondMap.get(key));
             }
             differenceTree.put(key, statusMap);
         }
